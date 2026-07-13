@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import re
 
+from search_engine.models.token import Token
+
 
 class Tokenizer:
     """
@@ -13,8 +15,8 @@ class Tokenizer:
 
     _TOKEN_PATTERN = re.compile(r"\b\w+\b", re.UNICODE)
 
-    def tokenize(self, text: str) -> list[str]:
+    def tokenize(self, text: str) -> list[Token]:
         if not text:
             return []
 
-        return self._TOKEN_PATTERN.findall(text)
+        return [Token(text=match) for match in self._TOKEN_PATTERN.findall(text)]
